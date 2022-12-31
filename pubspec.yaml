@@ -1,4 +1,4 @@
-name: chat_gpt
+name: chat_gpt_flutter
 description: ChatGPT API implemented in Flutter
 version: 0.0.1
 repository: https://github.com/hrvojecukman/chat_gpt_flutter

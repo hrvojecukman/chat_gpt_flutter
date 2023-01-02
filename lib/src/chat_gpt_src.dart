@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:chat_gpt/src/api/api_client.dart';
-import 'package:chat_gpt/src/interceptor/chat_gpt_interceptor.dart';
-import 'package:chat_gpt/src/models/completition_request.dart';
+import 'package:chat_gpt_flutter/src/api/api_client.dart';
+import 'package:chat_gpt_flutter/src/interceptor/chat_gpt_interceptor.dart';
+import 'package:chat_gpt_flutter/src/models/completition_request.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 

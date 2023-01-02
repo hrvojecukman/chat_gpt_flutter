@@ -1,5 +1,5 @@
-import 'package:chat_gpt/src/models/choices_response.dart';
-import 'package:chat_gpt/src/models/usage_response.dart';
+import 'package:chat_gpt_flutter/src/models/choices_response.dart';
+import 'package:chat_gpt_flutter/src/models/usage_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'completition_response.g.dart';

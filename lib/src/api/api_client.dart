@@ -1,5 +1,5 @@
-import 'package:chat_gpt/src/models/completition_request.dart';
-import 'package:chat_gpt/src/models/completition_response.dart';
+import 'package:chat_gpt_flutter/src/models/completition_request.dart';
+import 'package:chat_gpt_flutter/src/models/completition_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 

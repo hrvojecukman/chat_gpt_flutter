@@ -12,7 +12,7 @@ dependencies:
 
 
   cupertino_icons: ^1.0.2
-  chat_gpt:
+  chat_gpt_flutter:
     path: ../
 
 dev_dependencies:

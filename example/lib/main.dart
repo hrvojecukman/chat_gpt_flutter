@@ -1,4 +1,4 @@
-import 'package:chat_gpt/chat_gpt.dart';
+import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:flutter/material.dart';
 
 void main() {

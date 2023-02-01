@@ -7,13 +7,13 @@ class ChoicesResponse {
   final String text;
   final int index;
   final int? logprobs;
-  final String finishReason;
+  final String? finishReason;
 
   ChoicesResponse({
     required this.text,
     required this.index,
     this.logprobs,
-    required this.finishReason,
+    this.finishReason,
   });
 
   factory ChoicesResponse.fromJson(Map<String, dynamic> data) =>

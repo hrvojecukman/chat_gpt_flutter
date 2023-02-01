@@ -11,7 +11,6 @@ class ChatGptInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     final token = 'Bearer $_apiKey';
-    options.responseType = ResponseType.json;
     options.headers.addEntries(
       [
         MapEntry<String, String>('Authorization', token),

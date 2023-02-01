@@ -19,14 +19,14 @@ class _ApiClient implements ApiClient {
   String? baseUrl;
 
   @override
-  Future<CompleteResponse> createCompletion(request) async {
+  Future<CompletionResponse> createCompletion(request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<CompleteResponse>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<CompletionResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -38,7 +38,7 @@ class _ApiClient implements ApiClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = CompleteResponse.fromJson(_result.data!);
+    final value = CompletionResponse.fromJson(_result.data!);
     return value;
   }
 

@@ -1,23 +1,26 @@
+import 'package:chat_gpt_flutter/src/models/chat_gpt_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'completition_request.g.dart';
+part 'completion_request.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class CompletionRequest {
-  final String model;
+  final ChatGptModel model;
   final String? prompt;
   final int? maxTokens;
   final double? temperature;
   final double? topP;
   final int? n;
+  final bool? stream;
 
   CompletionRequest({
-    required this.model,
+    this.model = ChatGptModel.textDavinci003,
     required this.prompt,
     this.temperature = 0,
     this.maxTokens = 16,
     this.topP,
     this.n = 1,
+    this.stream,
   }) : assert(!(temperature != null && topP != null));
 
   factory CompletionRequest.fromJson(Map<String, dynamic> data) =>

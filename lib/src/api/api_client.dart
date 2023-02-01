@@ -1,5 +1,7 @@
-import 'package:chat_gpt_flutter/src/models/completition_request.dart';
-import 'package:chat_gpt_flutter/src/models/completition_response.dart';
+import 'dart:async';
+
+import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
+import 'package:chat_gpt_flutter/src/models/completion_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -10,5 +12,6 @@ abstract class ApiClient {
   factory ApiClient(Dio dio) = _ApiClient;
 
   @POST('/completions')
-  Future<CompleteResponse> createCompletion(@Body() CompletionRequest request);
+  Future<CompletionResponse> createCompletion(
+      @Body() CompletionRequest request);
 }

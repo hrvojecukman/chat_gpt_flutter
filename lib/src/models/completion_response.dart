@@ -2,18 +2,18 @@ import 'package:chat_gpt_flutter/src/models/choices_response.dart';
 import 'package:chat_gpt_flutter/src/models/usage_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'completition_response.g.dart';
+part 'completion_response.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class CompleteResponse {
+class CompletionResponse {
   final String id;
   final String object;
   final int created;
   final String model;
   final List<ChoicesResponse> choices;
-  final UsageResponse usage;
+  final UsageResponse? usage;
 
-  CompleteResponse({
+  CompletionResponse({
     required this.id,
     required this.object,
     required this.created,
@@ -22,7 +22,7 @@ class CompleteResponse {
     required this.usage,
   });
 
-  factory CompleteResponse.fromJson(Map<String, dynamic> data) =>
+  factory CompletionResponse.fromJson(Map<String, dynamic> data) =>
       _$CompleteResponseFromJson(data);
 
   Map<String, dynamic> toJson() => _$CompleteResponseToJson(this);

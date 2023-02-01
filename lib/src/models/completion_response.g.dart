@@ -6,7 +6,7 @@ part of 'completion_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-CompletionResponse _$CompleteResponseFromJson(Map<String, dynamic> json) =>
+CompletionResponse _$CompletionResponseFromJson(Map<String, dynamic> json) =>
     CompletionResponse(
       id: json['id'] as String,
       object: json['object'] as String,
@@ -20,7 +20,7 @@ CompletionResponse _$CompleteResponseFromJson(Map<String, dynamic> json) =>
           : UsageResponse.fromJson(json['usage'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$CompleteResponseToJson(CompletionResponse instance) =>
+Map<String, dynamic> _$CompletionResponseToJson(CompletionResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
       'object': instance.object,

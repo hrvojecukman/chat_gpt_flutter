@@ -23,7 +23,7 @@ class CompletionResponse {
   });
 
   factory CompletionResponse.fromJson(Map<String, dynamic> data) =>
-      _$CompleteResponseFromJson(data);
+      _$CompletionResponseFromJson(data);
 
-  Map<String, dynamic> toJson() => _$CompleteResponseToJson(this);
+  Map<String, dynamic> toJson() => _$CompletionResponseToJson(this);
 }

@@ -1,5 +1,9 @@
 ChatGPT API implemented in Flutter
 
+[![Buy Me A Coffee](https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/custom_images/orange_img.png "Buy Me A Coffee")](https://www.buymeacoffee.com/hrvojecukman "Buy Me A Coffee")
+
+![Usage example](https://hrvojecukman.github.io/chat_gpt/chat_gpt.gif)
+
 ## Getting started
 
 You have to create OpenAI account and request API key from

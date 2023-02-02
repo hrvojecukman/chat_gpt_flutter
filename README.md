@@ -5,7 +5,27 @@ ChatGPT API implemented in Flutter
 You have to create OpenAI account and request API key from
 here: https://beta.openai.com/account/api-keys
 
-## Usage
+
+## Stream usage
+
+```dart
+
+final chatGpt = ChatGpt(apiKey: apiKey);
+
+final question =
+    'Which Disney character famously leaves a glass slipper behind at a royal ball?';
+
+final request = CompletionRequest(
+  prompt: question,
+  stream: true,
+  maxTokens: 4000,
+  model: ChatGptModel.textDavinci003.key,
+);
+
+final stream = await chatGpt.createCompletionStream(request);
+
+```
+## Usage without stream
 
 ```dart
 

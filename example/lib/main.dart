@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-const apiKey = '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';
+const apiKey = 'TEST API KEY';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -116,7 +116,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: const SizedBox(
                           width: 48,
                           height: 48,
-                          child: Icon(Icons.send_rounded),
+                          child: Icon(
+                            Icons.send_rounded,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),

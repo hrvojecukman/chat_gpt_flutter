@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:example/models/question_answer.dart';
@@ -86,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: [
                         Text('Q: ${questionAnswer.question}'),
                         const SizedBox(height: 12),
-                        if (answer.isEmpty)
+                        if (answer.isEmpty && loading)
                           const Center(child: CircularProgressIndicator())
                         else
                           Text('A: $answer'),
@@ -141,18 +142,30 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
     });
-    final testRequest = CompletionRequest(prompt: question, stream: true);
+    final testRequest = CompletionRequest(
+      prompt: question,
+      stream: true,
+      maxTokens: 4000,
+    );
     await _streamResponse(testRequest);
     setState(() => loading = false);
   }
 
   _streamResponse(CompletionRequest request) async {
     streamSubscription?.cancel();
-    final stream = await chatGpt.createStreamCompletion(request);
-    streamSubscription = stream?.listen(
-      (event) => setState(
-        () => questionAnswers.last.answer.write(event.choices.first.text),
-      ),
-    );
+    try {
+      final stream = await chatGpt.createCompletionStream(request);
+      streamSubscription = stream?.listen(
+        (event) => setState(
+          () => questionAnswers.last.answer.write(event.choices.first.text),
+        ),
+      );
+    } catch (error) {
+      setState(() {
+        loading = false;
+        questionAnswers.last.answer.write("Error");
+      });
+      log("Error occurred: $error");
+    }
   }
 }

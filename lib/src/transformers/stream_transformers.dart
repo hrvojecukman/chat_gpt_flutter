@@ -19,6 +19,8 @@ StreamTransformer<String, CompletionResponse> responseTransformer =
       if (endOfStream != jsonString) {
         final json = jsonDecode(jsonString);
         sink.add(CompletionResponse.fromJson(json));
+      } else {
+        sink.add(CompletionResponse.end());
       }
     }
   },

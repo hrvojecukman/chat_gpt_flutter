@@ -160,7 +160,15 @@ class _MyHomePageState extends State<MyHomePage> {
       final stream = await chatGpt.createCompletionStream(request);
       streamSubscription = stream?.listen(
         (event) => setState(
-          () => questionAnswers.last.answer.write(event.choices.first.text),
+          () {
+            if (event.streamMessageEnd) {
+              streamSubscription?.cancel();
+            } else {
+              return questionAnswers.last.answer.write(
+                event.choices?.first.text,
+              );
+            }
+          },
         ),
       );
     } catch (error) {

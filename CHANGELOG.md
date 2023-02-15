@@ -1,5 +1,9 @@
 ## 1.0.2
 
+* Made prompt List<String> so it can support longer questions
+
+## 1.0.2
+
 * Added option to detect last stream message in the app
 
 ## 1.0.0

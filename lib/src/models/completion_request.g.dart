@@ -10,7 +10,8 @@ CompletionRequest _$CompletionRequestFromJson(Map<String, dynamic> json) =>
     CompletionRequest(
       model: $enumDecodeNullable(_$ChatGptModelEnumMap, json['model']) ??
           ChatGptModel.textDavinci003,
-      prompt: json['prompt'] as String?,
+      prompt:
+          (json['prompt'] as List<dynamic>?)?.map((e) => e as String).toList(),
       temperature: (json['temperature'] as num?)?.toDouble() ?? 0,
       maxTokens: json['max_tokens'] as int? ?? 16,
       topP: (json['top_p'] as num?)?.toDouble(),

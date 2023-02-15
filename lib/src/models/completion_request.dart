@@ -6,7 +6,7 @@ part 'completion_request.g.dart';
 @JsonSerializable(fieldRename: FieldRename.snake)
 class CompletionRequest {
   final ChatGptModel model;
-  final String? prompt;
+  final List<String>? prompt;
   final int? maxTokens;
   final double? temperature;
   final double? topP;

@@ -146,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     });
     final testRequest = CompletionRequest(
-      prompt: question,
+      prompt: [question],
       stream: true,
       maxTokens: 4000,
     );

@@ -37,6 +37,7 @@ const _$ChatGptModelEnumMap = {
   ChatGptModel.textAda001: 'text-ada-001',
   ChatGptModel.davinci: 'davinci',
   ChatGptModel.textDavinci001: 'text-davinci-001',
+  ChatGptModel.textDavinci002: 'text-davinci-002',
   ChatGptModel.textDavinci003: 'text-davinci-003',
   ChatGptModel.codeDavinci002: 'code-davinci-002',
   ChatGptModel.davinciInstructBeta: 'davinci-instruct-beta',

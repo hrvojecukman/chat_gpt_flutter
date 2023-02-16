@@ -13,6 +13,8 @@ enum ChatGptModel {
   davinci,
   @JsonValue('text-davinci-001')
   textDavinci001,
+  @JsonValue('text-davinci-002')
+  textDavinci002,
   @JsonValue('text-davinci-003')
   textDavinci003,
   @JsonValue('code-davinci-002')

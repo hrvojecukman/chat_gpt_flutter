@@ -7,32 +7,32 @@ import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 const openAiBaseUrl = 'https://api.openai.com/v1';
-const completionsEndPoint = '/completions';
+const chatCompletionsEndPoint = '/chat/completions';
 
 class ChatGpt {
   final String apiKey;
 
   ChatGpt({required this.apiKey});
 
-  Future<CompletionResponse?> createCompletion(
+  Future<AsyncCompletionResponse?> createChatCompletion(
     CompletionRequest request,
   ) async {
     final response = await dio.post(
-      completionsEndPoint,
+      chatCompletionsEndPoint,
       data: json.encode(request.toJson()),
     );
     final data = response.data;
     if (data != null) {
-      return CompletionResponse.fromJson(data);
+      return AsyncCompletionResponse.fromJson(data);
     }
     return null;
   }
 
-  Future<Stream<CompletionResponse>?> createCompletionStream(
+  Future<Stream<StreamCompletionResponse>?> createChatCompletionStream(
     CompletionRequest request,
   ) async {
     final response = await dio.post<ResponseBody>(
-      completionsEndPoint,
+      chatCompletionsEndPoint,
       data: json.encode(request.toJson()),
       options: Options(
         headers: {

@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   late TextEditingController textEditingController;
 
-  StreamSubscription<CompletionResponse>? streamSubscription;
+  StreamSubscription<StreamCompletionResponse>? streamSubscription;
 
   @override
   void initState() {
@@ -146,9 +146,9 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     });
     final testRequest = CompletionRequest(
-      prompt: [question],
       stream: true,
       maxTokens: 4000,
+      messages: [Message(role: Role.user.name, content: question)],
     );
     await _streamResponse(testRequest);
     setState(() => loading = false);
@@ -157,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
   _streamResponse(CompletionRequest request) async {
     streamSubscription?.cancel();
     try {
-      final stream = await chatGpt.createCompletionStream(request);
+      final stream = await chatGpt.createChatCompletionStream(request);
       streamSubscription = stream?.listen(
         (event) => setState(
           () {
@@ -165,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
               streamSubscription?.cancel();
             } else {
               return questionAnswers.last.answer.write(
-                event.choices?.first.text,
+                event.choices?.first.delta?.content,
               );
             }
           },

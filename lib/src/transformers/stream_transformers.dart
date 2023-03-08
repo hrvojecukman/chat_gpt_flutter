@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
+import 'package:chat_gpt_flutter/src/models/stream_completion_response.dart';
 
 const endOfStream = '[DONE]';
 
@@ -11,16 +11,16 @@ StreamTransformer<Uint8List, List<int>> unit8Transformer =
   handleData: (data, sink) => sink.add(List<int>.from(data)),
 );
 
-StreamTransformer<String, CompletionResponse> responseTransformer =
+StreamTransformer<String, StreamCompletionResponse> responseTransformer =
     StreamTransformer.fromHandlers(
   handleData: (data, sink) {
     if (data.isNotEmpty) {
       final jsonString = data.replaceAll('data: ', '');
       if (endOfStream != jsonString) {
         final json = jsonDecode(jsonString);
-        sink.add(CompletionResponse.fromJson(json));
+        sink.add(StreamCompletionResponse.fromJson(json));
       } else {
-        sink.add(CompletionResponse.end());
+        sink.add(StreamCompletionResponse.end());
       }
     }
   },

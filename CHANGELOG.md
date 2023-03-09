@@ -1,3 +1,9 @@
+## 1.0.6
+
+* Added support for new gpt-3.5-turbo model
+* Added separate stream and async responses with different properties
+* Prompt from request replaced with messages that support roles
+
 ## 1.0.5
 
 * Added text-davinci-002 model

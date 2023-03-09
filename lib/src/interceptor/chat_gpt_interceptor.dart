@@ -6,7 +6,7 @@ class ChatGptInterceptor extends Interceptor {
   ChatGptInterceptor(this._apiKey);
 
   @override
-  Future onRequest(
+  void onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {

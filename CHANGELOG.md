@@ -1,3 +1,7 @@
+## 1.0.7
+
+* Added optional timeout properties to dio HTTP client
+
 ## 1.0.6
 
 * Added support for new gpt-3.5-turbo model

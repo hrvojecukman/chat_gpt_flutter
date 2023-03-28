@@ -11,8 +11,15 @@ const chatCompletionsEndPoint = '/chat/completions';
 
 class ChatGpt {
   final String apiKey;
+  final int? connectTimeout;
+  final int? sendTimeout;
+  final int? receiveTimeout;
 
-  ChatGpt({required this.apiKey});
+  ChatGpt(
+      {required this.apiKey,
+      this.connectTimeout,
+      this.sendTimeout,
+      this.receiveTimeout});
 
   Future<AsyncCompletionResponse?> createChatCompletion(
     CompletionRequest request,
@@ -52,7 +59,11 @@ class ChatGpt {
     return stream;
   }
 
-  Dio get dio => Dio(BaseOptions(baseUrl: openAiBaseUrl))
+  Dio get dio => Dio(BaseOptions(
+      baseUrl: openAiBaseUrl,
+      receiveTimeout: receiveTimeout,
+      sendTimeout: sendTimeout,
+      connectTimeout: connectTimeout))
     ..interceptors.addAll([
       ChatGptInterceptor(apiKey),
       PrettyDioLogger(

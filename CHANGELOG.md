@@ -1,4 +1,4 @@
-## 1.0.7
+## 1.0.8
 
 * Added optional timeout properties to dio HTTP client
 

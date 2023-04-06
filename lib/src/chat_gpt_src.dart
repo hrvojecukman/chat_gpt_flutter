@@ -2,10 +2,7 @@ import 'dart:convert';
 
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:chat_gpt_flutter/src/interceptor/chat_gpt_interceptor.dart';
-import 'package:chat_gpt_flutter/src/models/create_image_request.dart';
 import 'package:chat_gpt_flutter/src/models/image_edit_request.dart';
-import 'package:chat_gpt_flutter/src/models/image_response.dart';
-import 'package:chat_gpt_flutter/src/models/image_variation_request.dart';
 import 'package:chat_gpt_flutter/src/transformers/stream_transformers.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -97,9 +94,14 @@ class ChatGpt {
   Future<ImageResponse?> createImageVariation(
     ImageVariationRequest request,
   ) async {
+    final formData = FormData.fromMap({
+      'n': request.n,
+      'size': request.size,
+      'image': await MultipartFile.fromFile(request.image),
+    });
     final response = await dio.post(
       imageVariationsEndPoint,
-      data: json.encode(request.toJson()),
+      data: formData,
     );
     final data = response.data;
     if (data != null) {

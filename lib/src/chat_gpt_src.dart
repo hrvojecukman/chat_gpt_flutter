@@ -99,9 +99,10 @@ class ChatGpt {
       'size': request.size,
       'image': await MultipartFile.fromFile(request.image),
     });
-    final response = await dio.post(imageVariationsEndPoint,
-        data: formData,
-        options: Options(headers: {'Content-Type': 'multipart/form-data'}));
+    final response = await dio.post(
+      imageVariationsEndPoint,
+      data: formData,
+    );
     final data = response.data;
     if (data != null) {
       return ImageResponse.fromJson(data);
@@ -111,6 +112,21 @@ class ChatGpt {
 
   Dio get dio => Dio(BaseOptions(
       baseUrl: openAiBaseUrl,
+      receiveTimeout: receiveTimeout,
+      sendTimeout: sendTimeout,
+      connectTimeout: connectTimeout))
+    ..interceptors.addAll([
+      ChatGptInterceptor(apiKey),
+      PrettyDioLogger(
+        requestBody: true,
+        requestHeader: true,
+        responseHeader: true,
+      ),
+    ]);
+
+  Dio get imageDio => Dio(BaseOptions(
+      baseUrl: openAiBaseUrl,
+      headers: {'Content-Type': 'multipart/form-data'},
       receiveTimeout: receiveTimeout,
       sendTimeout: sendTimeout,
       connectTimeout: connectTimeout))

@@ -124,18 +124,6 @@ class ChatGpt {
       ),
     ]);
 
-  Dio get imageDio => Dio(BaseOptions(
-      baseUrl: openAiBaseUrl,
-      headers: {'Content-Type': 'multipart/form-data'},
-      receiveTimeout: receiveTimeout,
-      sendTimeout: sendTimeout,
-      connectTimeout: connectTimeout))
-    ..interceptors.addAll([
-      ChatGptInterceptor(apiKey),
-      PrettyDioLogger(
-        requestBody: true,
-        requestHeader: true,
-        responseHeader: true,
-      ),
-    ]);
+  Dio get imageDio =>
+      dio..options.headers.addAll({'Content-Type': 'multipart/form-data'});
 }

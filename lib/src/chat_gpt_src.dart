@@ -99,10 +99,9 @@ class ChatGpt {
       'size': request.size,
       'image': await MultipartFile.fromFile(request.image),
     });
-    final response = await dio.post(
-      imageVariationsEndPoint,
-      data: formData,
-    );
+    final response = await dio.post(imageVariationsEndPoint,
+        data: formData,
+        options: Options(headers: {'Content-Type': 'multipart/form-data'}));
     final data = response.data;
     if (data != null) {
       return ImageResponse.fromJson(data);

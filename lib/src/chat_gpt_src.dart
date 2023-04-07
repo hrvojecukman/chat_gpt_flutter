@@ -99,7 +99,7 @@ class ChatGpt {
       'size': request.size,
       'image': await MultipartFile.fromFile(request.image),
     });
-    final response = await dio.post(
+    final response = await imageDio.post(
       imageVariationsEndPoint,
       data: formData,
     );

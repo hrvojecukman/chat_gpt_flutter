@@ -1,25 +1,19 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'dart:typed_data';
 
-part 'image_variation_request.g.dart';
-
-@JsonSerializable(fieldRename: FieldRename.snake)
 class ImageVariationRequest {
-  final String image;
+  final String? image;
+  final Uint8List? imageBytes;
   final int? n;
   final String? size;
   final String? responseFormat;
   final String? user;
 
   ImageVariationRequest({
-    required this.image,
+    this.image,
+    this.imageBytes,
     this.n,
     this.size,
     this.responseFormat,
     this.user,
   });
-
-  factory ImageVariationRequest.fromJson(Map<String, dynamic> data) =>
-      _$ImageVariationRequestFromJson(data);
-
-  Map<String, dynamic> toJson() => _$ImageVariationRequestToJson(this);
 }

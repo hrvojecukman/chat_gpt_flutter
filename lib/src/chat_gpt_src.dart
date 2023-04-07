@@ -97,7 +97,9 @@ class ChatGpt {
     final formData = FormData.fromMap({
       'n': request.n,
       'size': request.size,
-      'image': await MultipartFile.fromFile(request.image),
+      'image': request.image != null
+          ? await MultipartFile.fromFile(request.image ?? '')
+          : MultipartFile.fromBytes(request.imageBytes?.toList() ?? []),
     });
     final response = await imageDio.post(
       imageVariationsEndPoint,

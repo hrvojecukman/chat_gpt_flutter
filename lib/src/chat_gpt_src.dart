@@ -6,7 +6,6 @@ import 'package:chat_gpt_flutter/src/models/image_edit_request.dart';
 import 'package:chat_gpt_flutter/src/transformers/stream_transformers.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:http/http.dart' as http;
 
 const openAiBaseUrl = 'https://api.openai.com/v1';
 const chatCompletionsEndPoint = '/chat/completions';
@@ -95,14 +94,13 @@ class ChatGpt {
   Future<ImageResponse?> createImageVariation(
     ImageVariationRequest request,
   ) async {
-    final webImage = MultipartFile.fromBytes(request.webImage?.toList() ?? [], filename: 'picture');
     final formData = FormData.fromMap({
       'n': request.n,
       'size': request.size,
-      'image': webImage,
-      // 'image': request.image != null
-      //     ? await MultipartFile.fromFile(request.image ?? '')
-      //     : MultipartFile.fromBytes(request.webImage?.cast<int>() ?? []),
+      'image': request.image != null
+          ? await MultipartFile.fromFile(request.image ?? '')
+          : MultipartFile.fromBytes(request.webImage?.toList() ?? [],
+              filename: ''),
     });
     final response = await imageDio.post(
       imageVariationsEndPoint,

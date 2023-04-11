@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:chat_gpt_flutter/src/interceptor/chat_gpt_interceptor.dart';
-import 'package:chat_gpt_flutter/src/models/image_edit_request.dart';
 import 'package:chat_gpt_flutter/src/transformers/stream_transformers.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -68,20 +67,6 @@ class ChatGpt {
   ) async {
     final response = await dio.post(
       imageGenerationsEndPoint,
-      data: json.encode(request.toJson()),
-    );
-    final data = response.data;
-    if (data != null) {
-      return ImageResponse.fromJson(data);
-    }
-    return null;
-  }
-
-  Future<ImageResponse?> createImageEdit(
-    ImageEditRequest request,
-  ) async {
-    final response = await dio.post(
-      imageEditsEndPoint,
       data: json.encode(request.toJson()),
     );
     final data = response.data;

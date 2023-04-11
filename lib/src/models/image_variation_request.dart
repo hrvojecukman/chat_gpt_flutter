@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 class ImageVariationRequest {
   final String? image;
-  final Uint8List? imageBytes;
+  final Uint8List? webImage;
   final int? n;
   final String? size;
   final String? responseFormat;
@@ -10,7 +10,7 @@ class ImageVariationRequest {
 
   ImageVariationRequest({
     this.image,
-    this.imageBytes,
+    this.webImage,
     this.n,
     this.size,
     this.responseFormat,

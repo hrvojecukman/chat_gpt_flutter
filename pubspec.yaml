@@ -11,6 +11,7 @@ dependencies:
   dio: ^4.0.6
   flutter:
     sdk: flutter
+  http: ^0.13.5
   json_annotation: ^4.8.0
   json_serializable: ^6.6.1
   pretty_dio_logger: ^1.1.1

@@ -95,8 +95,7 @@ class ChatGpt {
   Future<ImageResponse?> createImageVariation(
     ImageVariationRequest request,
   ) async {
-    final webImage = http.MultipartFile.fromBytes(
-        'image', request.webImage?.cast<int>() ?? []);
+    final webImage = MultipartFile.fromBytes(request.webImage?.toList() ?? [], filename: 'picture');
     final formData = FormData.fromMap({
       'n': request.n,
       'size': request.size,

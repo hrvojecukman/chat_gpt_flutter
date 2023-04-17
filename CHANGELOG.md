@@ -1,3 +1,7 @@
+## 1.0.9
+
+* New endpoints for image generation
+
 ## 1.0.8
 
 * Added optional timeout properties to dio HTTP client

@@ -8,6 +8,9 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 const openAiBaseUrl = 'https://api.openai.com/v1';
 const chatCompletionsEndPoint = '/chat/completions';
+const imageGenerationsEndPoint = '/images/generations';
+const imageEditsEndPoint = '/images/edits';
+const imageVariationsEndPoint = '/images/variations';
 
 class ChatGpt {
   final String apiKey;
@@ -59,6 +62,42 @@ class ChatGpt {
     return stream;
   }
 
+  Future<ImageResponse?> createImage(
+    CreateImageRequest request,
+  ) async {
+    final response = await dio.post(
+      imageGenerationsEndPoint,
+      data: json.encode(request.toJson()),
+    );
+    final data = response.data;
+    if (data != null) {
+      return ImageResponse.fromJson(data);
+    }
+    return null;
+  }
+
+  Future<ImageResponse?> createImageVariation(
+    ImageVariationRequest request,
+  ) async {
+    final formData = FormData.fromMap({
+      'n': request.n,
+      'size': request.size,
+      'image': request.image != null
+          ? await MultipartFile.fromFile(request.image ?? '')
+          : MultipartFile.fromBytes(request.webImage?.toList() ?? [],
+              filename: ''),
+    });
+    final response = await imageDio.post(
+      imageVariationsEndPoint,
+      data: formData,
+    );
+    final data = response.data;
+    if (data != null) {
+      return ImageResponse.fromJson(data);
+    }
+    return null;
+  }
+
   Dio get dio => Dio(BaseOptions(
       baseUrl: openAiBaseUrl,
       receiveTimeout: receiveTimeout,
@@ -72,4 +111,7 @@ class ChatGpt {
         responseHeader: true,
       ),
     ]);
+
+  Dio get imageDio =>
+      dio..options.headers.addAll({'Content-Type': 'multipart/form-data'});
 }

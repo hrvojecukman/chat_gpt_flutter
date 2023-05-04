@@ -9,7 +9,7 @@ part of 'completion_request.dart';
 CompletionRequest _$CompletionRequestFromJson(Map<String, dynamic> json) =>
     CompletionRequest(
       model: $enumDecodeNullable(_$ChatGptModelEnumMap, json['model']) ??
-          ChatGptModel.gpt35Turbo,
+          ChatGptModel.gpt4,
       messages: (json['messages'] as List<dynamic>)
           .map((e) => Message.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -49,4 +49,7 @@ const _$ChatGptModelEnumMap = {
   ChatGptModel.curie: 'curie',
   ChatGptModel.textCurie001: 'text-curie-001',
   ChatGptModel.gpt35Turbo: 'gpt-3.5-turbo',
+  ChatGptModel.gpt35Turbo0301: 'gpt-3.5-turbo-0301',
+  ChatGptModel.gpt4: 'gpt-4',
+  ChatGptModel.gpt40314: 'gpt-4-0314',
 };

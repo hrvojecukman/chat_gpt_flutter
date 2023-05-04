@@ -16,7 +16,7 @@ class CompletionRequest {
   final int? maxTokens; // max_tokens + messages tokens > 4096 will throw 400 error code
 
   CompletionRequest({
-    this.model = ChatGptModel.gpt35Turbo,
+    this.model = ChatGptModel.gpt4,
     required this.messages,
     this.temperature = 0,
     this.topP,

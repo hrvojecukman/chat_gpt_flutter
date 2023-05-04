@@ -30,5 +30,11 @@ enum ChatGptModel {
   @JsonValue('text-curie-001')
   textCurie001,
   @JsonValue('gpt-3.5-turbo')
-  gpt35Turbo;
+  gpt35Turbo,
+  @JsonValue('gpt-3.5-turbo-0301')
+  gpt35Turbo0301,
+  @JsonValue('gpt-4')
+  gpt4,
+  @JsonValue('gpt-4-0314')
+  gpt40314;
 }

@@ -1,3 +1,7 @@
+## 1.0.10
+
+* New gpt-4 model added
+
 ## 1.0.9
 
 * New endpoints for image generation

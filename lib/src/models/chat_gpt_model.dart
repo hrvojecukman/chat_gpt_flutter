@@ -36,7 +36,9 @@ enum ChatGptModel {
   @JsonValue('gpt-4')
   gpt4(modelName: 'gpt-4'),
   @JsonValue('gpt-4-0314')
-  gpt40314(modelName: 'gpt-4-0314');
+  gpt40314(modelName: 'gpt-4-0314'),
+  @JsonValue('whisper-1')
+  whisper1(modelName: 'whisper-1');
 
   final String modelName;
 

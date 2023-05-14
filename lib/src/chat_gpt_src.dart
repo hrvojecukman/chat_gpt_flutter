@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:chat_gpt_flutter/src/interceptor/chat_gpt_interceptor.dart';
+import 'package:chat_gpt_flutter/src/models/transcription_request.dart';
+import 'package:chat_gpt_flutter/src/models/transcription_response.dart';
 import 'package:chat_gpt_flutter/src/transformers/stream_transformers.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -11,6 +13,7 @@ const chatCompletionsEndPoint = '/chat/completions';
 const imageGenerationsEndPoint = '/images/generations';
 const imageEditsEndPoint = '/images/edits';
 const imageVariationsEndPoint = '/images/variations';
+const transcriptionsEndPoint = '/audio/transcriptions';
 
 class ChatGpt {
   final String apiKey;
@@ -87,13 +90,33 @@ class ChatGpt {
           : MultipartFile.fromBytes(request.webImage?.toList() ?? [],
               filename: ''),
     });
-    final response = await imageDio.post(
+    final response = await multipartDataDio.post(
       imageVariationsEndPoint,
       data: formData,
     );
     final data = response.data;
     if (data != null) {
       return ImageResponse.fromJson(data);
+    }
+    return null;
+  }
+
+  Future<TranscriptionResponse?> createTranscription(
+    TranscriptionRequest request,
+  ) async {
+    final formData = FormData.fromMap({
+      'file': await MultipartFile.fromFile(request.audioFilePath),
+      'model': request.model,
+      'prompt': request.prompt,
+      'language': request.language,
+    });
+    final response = await multipartDataDio.post(
+      transcriptionsEndPoint,
+      data: formData,
+    );
+    final data = response.data;
+    if (data != null) {
+      return TranscriptionResponse.fromJson(data);
     }
     return null;
   }
@@ -112,6 +135,6 @@ class ChatGpt {
       ),
     ]);
 
-  Dio get imageDio =>
+  Dio get multipartDataDio =>
       dio..options.headers.addAll({'Content-Type': 'multipart/form-data'});
 }

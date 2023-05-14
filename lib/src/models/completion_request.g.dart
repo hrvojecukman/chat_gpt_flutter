@@ -52,4 +52,5 @@ const _$ChatGptModelEnumMap = {
   ChatGptModel.gpt35Turbo0301: 'gpt-3.5-turbo-0301',
   ChatGptModel.gpt4: 'gpt-4',
   ChatGptModel.gpt40314: 'gpt-4-0314',
+  ChatGptModel.whisper1: 'whisper-1',
 };

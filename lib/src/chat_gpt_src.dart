@@ -106,7 +106,7 @@ class ChatGpt {
   ) async {
     final formData = FormData.fromMap({
       'file': await MultipartFile.fromFile(request.audioFilePath),
-      'model': request.model,
+      'model': request.model.modelName,
       'prompt': request.prompt,
       'language': request.language,
     });

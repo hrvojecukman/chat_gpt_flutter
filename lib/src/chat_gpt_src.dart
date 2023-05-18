@@ -126,7 +126,8 @@ class ChatGpt {
   Future<MultipartFile?> _createMultipartFileFromUrl(String url) async {
     try {
       Uint8List fileBytes = await http.readBytes(Uri.parse(url));
-      return MultipartFile.fromBytes(fileBytes.toList(), filename: '');
+      return MultipartFile.fromBytes(fileBytes.toList(),
+          filename: 'audio.webm');
     } catch (e) {
       return null;
     }

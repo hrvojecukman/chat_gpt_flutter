@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:chat_gpt_flutter/src/interceptor/chat_gpt_interceptor.dart';
-import 'package:chat_gpt_flutter/src/models/transcription_request.dart';
-import 'package:chat_gpt_flutter/src/models/transcription_response.dart';
 import 'package:chat_gpt_flutter/src/transformers/stream_transformers.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:http/http.dart' as http;
 
 const openAiBaseUrl = 'https://api.openai.com/v1';
 const chatCompletionsEndPoint = '/chat/completions';
@@ -105,7 +105,9 @@ class ChatGpt {
     TranscriptionRequest request,
   ) async {
     final formData = FormData.fromMap({
-      'file': await MultipartFile.fromFile(request.audioFilePath),
+      'file': kIsWeb
+          ? await _createMultipartFileFromUrl(request.audioFilePath)
+          : await MultipartFile.fromFile(request.audioFilePath),
       'model': request.model.modelName,
       'prompt': request.prompt,
       'language': request.language,
@@ -119,6 +121,17 @@ class ChatGpt {
       return TranscriptionResponse.fromJson(data);
     }
     return null;
+  }
+
+  Future<MultipartFile?> _createMultipartFileFromUrl(String url) async {
+    try {
+      final audioResponse = await http.get(Uri.parse(url));
+      final audioData = audioResponse.bodyBytes;
+      String fileName = url.split('/').last;
+      return MultipartFile.fromBytes(audioData.toList(), filename: fileName);
+    } catch (e) {
+      return null;
+    }
   }
 
   Dio get dio => Dio(BaseOptions(

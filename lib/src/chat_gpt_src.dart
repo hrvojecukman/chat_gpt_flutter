@@ -125,10 +125,15 @@ class ChatGpt {
 
   Future<MultipartFile?> _createMultipartFileFromUrl(String url) async {
     try {
-      final audioResponse = await http.get(Uri.parse(url));
-      final audioData = audioResponse.bodyBytes;
+      final dio = Dio();
+      final audioResponse = await dio.get(
+        url,
+        options: Options(responseType: ResponseType.bytes),
+      );
       String fileName = url.split('/').last;
-      return MultipartFile.fromBytes(audioData.toList(), filename: fileName);
+      return MultipartFile.fromBytes(
+          Uint8List.fromList(audioResponse.data).toList(),
+          filename: fileName);
     } catch (e) {
       return null;
     }

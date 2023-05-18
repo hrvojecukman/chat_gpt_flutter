@@ -104,10 +104,13 @@ class ChatGpt {
   Future<TranscriptionResponse?> createTranscription(
     TranscriptionRequest request,
   ) async {
+    final audioFilePath = request.audioFilePath;
     final formData = FormData.fromMap({
       'file': kIsWeb
-          ? await _createMultipartFileFromUrl(request.audioFilePath)
-          : await MultipartFile.fromFile(request.audioFilePath),
+          ? await _createMultipartFileFromUrl(
+              url: audioFilePath,
+              fileName: '${audioFilePath.split('/').last}.webm')
+          : await MultipartFile.fromFile(audioFilePath),
       'model': request.model.modelName,
       'prompt': request.prompt,
       'language': request.language,
@@ -123,11 +126,11 @@ class ChatGpt {
     return null;
   }
 
-  Future<MultipartFile?> _createMultipartFileFromUrl(String url) async {
+  Future<MultipartFile?> _createMultipartFileFromUrl(
+      {required String url, required String fileName}) async {
     try {
       Uint8List fileBytes = await http.readBytes(Uri.parse(url));
-      return MultipartFile.fromBytes(fileBytes.toList(),
-          filename: 'audio.webm');
+      return MultipartFile.fromBytes(fileBytes.toList(), filename: fileName);
     } catch (e) {
       return null;
     }

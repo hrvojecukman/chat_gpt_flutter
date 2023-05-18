@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:chat_gpt_flutter/src/interceptor/chat_gpt_interceptor.dart';
@@ -125,15 +126,8 @@ class ChatGpt {
 
   Future<MultipartFile?> _createMultipartFileFromUrl(String url) async {
     try {
-      final dio = Dio();
-      final audioResponse = await dio.get(
-        url,
-        options: Options(responseType: ResponseType.bytes),
-      );
-      String fileName = url.split('/').last;
-      return MultipartFile.fromBytes(
-          Uint8List.fromList(audioResponse.data).toList(),
-          filename: fileName);
+      Uint8List fileBytes = await http.readBytes(Uri.parse(url));
+      return MultipartFile.fromBytes(fileBytes.toList());
     } catch (e) {
       return null;
     }

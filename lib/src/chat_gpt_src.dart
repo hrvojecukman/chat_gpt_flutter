@@ -4,13 +4,16 @@ import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:chat_gpt_flutter/src/interceptor/chat_gpt_interceptor.dart';
 import 'package:chat_gpt_flutter/src/transformers/stream_transformers.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:http/http.dart' as http;
 
 const openAiBaseUrl = 'https://api.openai.com/v1';
 const chatCompletionsEndPoint = '/chat/completions';
 const imageGenerationsEndPoint = '/images/generations';
 const imageEditsEndPoint = '/images/edits';
 const imageVariationsEndPoint = '/images/variations';
+const transcriptionsEndPoint = '/audio/transcriptions';
 
 class ChatGpt {
   final String apiKey;
@@ -87,7 +90,7 @@ class ChatGpt {
           : MultipartFile.fromBytes(request.webImage?.toList() ?? [],
               filename: ''),
     });
-    final response = await imageDio.post(
+    final response = await multipartDataDio.post(
       imageVariationsEndPoint,
       data: formData,
     );
@@ -96,6 +99,41 @@ class ChatGpt {
       return ImageResponse.fromJson(data);
     }
     return null;
+  }
+
+  Future<TranscriptionResponse?> createTranscription(
+    TranscriptionRequest request,
+  ) async {
+    final audioFilePath = request.audioFilePath;
+    final formData = FormData.fromMap({
+      'file': kIsWeb
+          ? await _createMultipartFileFromUrl(
+              url: audioFilePath,
+              fileName: '${audioFilePath.split('/').last}.webm')
+          : await MultipartFile.fromFile(audioFilePath),
+      'model': request.model.modelName,
+      'prompt': request.prompt,
+      'language': request.language,
+    });
+    final response = await multipartDataDio.post(
+      transcriptionsEndPoint,
+      data: formData,
+    );
+    final data = response.data;
+    if (data != null) {
+      return TranscriptionResponse.fromJson(data);
+    }
+    return null;
+  }
+
+  Future<MultipartFile?> _createMultipartFileFromUrl(
+      {required String url, required String fileName}) async {
+    try {
+      Uint8List fileBytes = await http.readBytes(Uri.parse(url));
+      return MultipartFile.fromBytes(fileBytes.toList(), filename: fileName);
+    } catch (e) {
+      return null;
+    }
   }
 
   Dio get dio => Dio(BaseOptions(
@@ -112,6 +150,6 @@ class ChatGpt {
       ),
     ]);
 
-  Dio get imageDio =>
+  Dio get multipartDataDio =>
       dio..options.headers.addAll({'Content-Type': 'multipart/form-data'});
 }

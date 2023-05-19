@@ -10,3 +10,5 @@ export './src/models/role.dart';
 export './src/models/create_image_request.dart';
 export './src/models/image_response.dart';
 export './src/models/image_variation_request.dart';
+export './src/models/transcription_request.dart';
+export './src/models/transcription_response.dart';

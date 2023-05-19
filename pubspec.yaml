@@ -1,6 +1,6 @@
 name: chat_gpt_flutter
 description: ChatGPT API implemented in Flutter
-version: 1.0.10
+version: 1.0.11
 repository: https://github.com/hrvojecukman/chat_gpt_flutter
 
 environment:
@@ -11,6 +11,7 @@ dependencies:
   dio: ^4.0.6
   flutter:
     sdk: flutter
+  http: ^0.13.6
   json_annotation: ^4.8.0
   json_serializable: ^6.6.1
   pretty_dio_logger: ^1.1.1

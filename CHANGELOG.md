@@ -1,3 +1,7 @@
+## 1.0.11
+
+* Create transcription endpoint added
+
 ## 1.0.10
 
 * New gpt-4 model added

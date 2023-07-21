@@ -15,8 +15,6 @@ StreamTransformer<Uint8List, List<int>> unit8Transformer =
 StreamTransformer<String, StreamCompletionResponse> chatResponseTransformer =
     StreamTransformer.fromHandlers(
   handleData: (data, sink) {
-    print("-----");
-    print(data);
     if (data.isNotEmpty) {
       final jsonString = data.replaceAll('data: ', '');
       if (endOfStream != jsonString) {

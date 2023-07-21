@@ -3,8 +3,7 @@ import 'package:example/chat_completion_page.dart';
 import 'package:example/completion_page.dart';
 import 'package:flutter/material.dart';
 
-//TODO: do not commit
-const apiKey = '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';
+const apiKey = '';
 
 void main() => runApp(MyApp(chatGpt: ChatGpt(apiKey: apiKey)));
 

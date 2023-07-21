@@ -1,3 +1,7 @@
+## 1.0.13
+
+* Improvements
+
 ## 1.0.12
 
 * You can now use custom fine tuned models in request. Example improved

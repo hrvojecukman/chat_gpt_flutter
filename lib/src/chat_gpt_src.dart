@@ -5,11 +5,12 @@ import 'package:chat_gpt_flutter/src/interceptor/chat_gpt_interceptor.dart';
 import 'package:chat_gpt_flutter/src/transformers/stream_transformers.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:http/http.dart' as http;
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 const openAiBaseUrl = 'https://api.openai.com/v1';
 const chatCompletionsEndPoint = '/chat/completions';
+const completionsEndPoint = '/completions';
 const imageGenerationsEndPoint = '/images/generations';
 const imageEditsEndPoint = '/images/edits';
 const imageVariationsEndPoint = '/images/variations';
@@ -21,14 +22,15 @@ class ChatGpt {
   final int? sendTimeout;
   final int? receiveTimeout;
 
-  ChatGpt(
-      {required this.apiKey,
-      this.connectTimeout,
-      this.sendTimeout,
-      this.receiveTimeout});
+  ChatGpt({
+    required this.apiKey,
+    this.connectTimeout,
+    this.sendTimeout,
+    this.receiveTimeout,
+  });
 
   Future<AsyncCompletionResponse?> createChatCompletion(
-    CompletionRequest request,
+    ChatCompletionRequest request,
   ) async {
     final response = await dio.post(
       chatCompletionsEndPoint,
@@ -42,7 +44,7 @@ class ChatGpt {
   }
 
   Future<Stream<StreamCompletionResponse>?> createChatCompletionStream(
-    CompletionRequest request,
+    ChatCompletionRequest request,
   ) async {
     final response = await dio.post<ResponseBody>(
       chatCompletionsEndPoint,
@@ -60,7 +62,31 @@ class ChatGpt {
         .transform(unit8Transformer)
         .transform(const Utf8Decoder())
         .transform(const LineSplitter())
-        .transform(responseTransformer);
+        .transform(chatResponseTransformer);
+
+    return stream;
+  }
+
+  Future<Stream<CompletionResponse>?> createCompletionStream(
+    CompletionRequest request,
+  ) async {
+    final response = await dio.post<ResponseBody>(
+      completionsEndPoint,
+      data: json.encode(request.toJson()),
+      options: Options(
+        headers: {
+          "Accept": "text/event-stream",
+          "Cache-Control": "no-cache",
+        },
+        responseType: ResponseType.stream,
+      ),
+    );
+
+    final stream = response.data?.stream
+        .transform(unit8Transformer)
+        .transform(const Utf8Decoder())
+        .transform(const LineSplitter())
+        .transform(completionResponseTransformer);
 
     return stream;
   }

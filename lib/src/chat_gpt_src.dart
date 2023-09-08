@@ -18,9 +18,9 @@ const transcriptionsEndPoint = '/audio/transcriptions';
 
 class ChatGpt {
   final String apiKey;
-  final int? connectTimeout;
-  final int? sendTimeout;
-  final int? receiveTimeout;
+  final Duration? connectTimeout;
+  final Duration? sendTimeout;
+  final Duration? receiveTimeout;
 
   ChatGpt({
     required this.apiKey,

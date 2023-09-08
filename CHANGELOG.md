@@ -1,3 +1,7 @@
+## 1.0.14
+
+* Dependencies upgrades
+
 ## 1.0.13
 
 * Improvements

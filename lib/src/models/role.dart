@@ -1,5 +1,1 @@
-enum Role {
-  system,
-  user,
-  assistant
-}
+enum Role { system, user, assistant }

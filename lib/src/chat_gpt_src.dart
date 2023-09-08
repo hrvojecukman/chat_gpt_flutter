@@ -16,12 +16,17 @@ const imageEditsEndPoint = '/images/edits';
 const imageVariationsEndPoint = '/images/variations';
 const transcriptionsEndPoint = '/audio/transcriptions';
 
+/// Represents the main class for interacting with the ChatGPT API.
 class ChatGpt {
   final String apiKey;
   final Duration? connectTimeout;
   final Duration? sendTimeout;
   final Duration? receiveTimeout;
 
+  /// Constructs a [ChatGpt] instance.
+  ///
+  /// [apiKey] is required to authenticate with the API.
+  /// [connectTimeout], [sendTimeout], and [receiveTimeout] are optional and represent the respective timeouts for the API calls.
   ChatGpt({
     required this.apiKey,
     this.connectTimeout,
@@ -29,6 +34,9 @@ class ChatGpt {
     this.receiveTimeout,
   });
 
+  /// Creates a chat completion using the provided [request].
+  ///
+  /// Returns an [AsyncCompletionResponse] or null if the request fails.
   Future<AsyncCompletionResponse?> createChatCompletion(
     ChatCompletionRequest request,
   ) async {
@@ -43,6 +51,9 @@ class ChatGpt {
     return null;
   }
 
+  /// Creates a chat completion stream using the provided [request].
+  ///
+  /// Returns a stream of [StreamCompletionResponse] or null if the request fails.
   Future<Stream<StreamCompletionResponse>?> createChatCompletionStream(
     ChatCompletionRequest request,
   ) async {
@@ -67,6 +78,9 @@ class ChatGpt {
     return stream;
   }
 
+  /// Creates a completion stream using the provided [request].
+  ///
+  /// Returns a stream of [CompletionResponse] or null if the request fails.
   Future<Stream<CompletionResponse>?> createCompletionStream(
     CompletionRequest request,
   ) async {
@@ -91,6 +105,9 @@ class ChatGpt {
     return stream;
   }
 
+  /// Creates an image using the provided [request].
+  ///
+  /// Returns an [ImageResponse] or null if the request fails.
   Future<ImageResponse?> createImage(
     CreateImageRequest request,
   ) async {
@@ -105,6 +122,9 @@ class ChatGpt {
     return null;
   }
 
+  /// Creates an image variation using the provided [request].
+  ///
+  /// Returns an [ImageResponse] or null if the request fails.
   Future<ImageResponse?> createImageVariation(
     ImageVariationRequest request,
   ) async {
@@ -127,6 +147,9 @@ class ChatGpt {
     return null;
   }
 
+  /// Creates a transcription using the provided [request].
+  ///
+  /// Returns a [TranscriptionResponse] or null if the request fails.
   Future<TranscriptionResponse?> createTranscription(
     TranscriptionRequest request,
   ) async {
@@ -152,6 +175,9 @@ class ChatGpt {
     return null;
   }
 
+  /// Helper method to create a [MultipartFile] from a given URL.
+  ///
+  /// Returns a [MultipartFile] or null if the operation fails.
   Future<MultipartFile?> _createMultipartFileFromUrl(
       {required String url, required String fileName}) async {
     try {
@@ -162,6 +188,7 @@ class ChatGpt {
     }
   }
 
+  /// Returns a Dio instance with the base options set.
   Dio get dio => Dio(BaseOptions(
       baseUrl: openAiBaseUrl,
       receiveTimeout: receiveTimeout,
@@ -176,6 +203,7 @@ class ChatGpt {
       ),
     ]);
 
+  /// Returns a Dio instance with headers set for multipart data.
   Dio get multipartDataDio =>
       dio..options.headers.addAll({'Content-Type': 'multipart/form-data'});
 }

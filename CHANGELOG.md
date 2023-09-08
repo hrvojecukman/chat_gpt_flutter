@@ -1,5 +1,9 @@
 ## 1.0.14
 
+* Added dartdoc documentation
+
+## 1.0.14
+
 * Dependencies upgrades
 
 ## 1.0.13

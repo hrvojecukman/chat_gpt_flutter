@@ -1,16 +1,16 @@
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:example/chat_completion_page.dart';
 import 'package:example/completion_page.dart';
+import 'package:example/secrets.dart';
 import 'package:flutter/material.dart';
 
-const apiKey = '';
+void main() => runApp(const MyApp());
 
-void main() => runApp(MyApp(chatGpt: ChatGpt(apiKey: apiKey)));
+//TODO: put your own apiKey
+final chatGpt = ChatGpt(apiKey: apiKey);
 
 class MyApp extends StatelessWidget {
-  final ChatGpt chatGpt;
-
-  const MyApp({super.key, required this.chatGpt});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

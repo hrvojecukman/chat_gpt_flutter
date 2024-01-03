@@ -204,6 +204,8 @@ class ChatGpt {
     ]);
 
   /// Returns a Dio instance with headers set for multipart data.
-  Dio get multipartDataDio =>
-      dio..options.headers.addAll({'Content-Type': 'multipart/form-data'});
+  Dio get multipartDataDio => dio
+    ..options.headers.addAll(
+      {'Content-Type': 'multipart/form-data'},
+    );
 }

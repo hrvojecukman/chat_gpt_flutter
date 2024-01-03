@@ -121,7 +121,7 @@ class _ChatCompletionPageState extends State<ChatCompletionPage> {
       stream: true,
       maxTokens: 4000,
       messages: [Message(role: Role.user.name, content: question)],
-      model: ChatGptModel.gpt35Turbo,
+      model: ChatGptModel.gpt41106Preview.modelName,
     );
     await _chatStreamResponse(testRequest);
 

@@ -9,8 +9,7 @@ part of 'chat_completion_request.dart';
 ChatCompletionRequest _$ChatCompletionRequestFromJson(
         Map<String, dynamic> json) =>
     ChatCompletionRequest(
-      model: $enumDecodeNullable(_$ChatGptModelEnumMap, json['model']) ??
-          ChatGptModel.gpt4,
+      model: json['model'] as String,
       messages: (json['messages'] as List<dynamic>)
           .map((e) => Message.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -25,7 +24,7 @@ ChatCompletionRequest _$ChatCompletionRequestFromJson(
 Map<String, dynamic> _$ChatCompletionRequestToJson(
         ChatCompletionRequest instance) =>
     <String, dynamic>{
-      'model': _$ChatGptModelEnumMap[instance.model]!,
+      'model': instance.model,
       'messages': instance.messages,
       'temperature': instance.temperature,
       'top_p': instance.topP,
@@ -34,26 +33,3 @@ Map<String, dynamic> _$ChatCompletionRequestToJson(
       'stop': instance.stop,
       'max_tokens': instance.maxTokens,
     };
-
-const _$ChatGptModelEnumMap = {
-  ChatGptModel.babbage: 'babbage',
-  ChatGptModel.textBabbage001: 'text-babbage-001',
-  ChatGptModel.ada: 'ada',
-  ChatGptModel.textAda001: 'text-ada-001',
-  ChatGptModel.davinci: 'davinci',
-  ChatGptModel.textDavinci001: 'text-davinci-001',
-  ChatGptModel.textDavinci002: 'text-davinci-002',
-  ChatGptModel.textDavinci003: 'text-davinci-003',
-  ChatGptModel.codeDavinci002: 'code-davinci-002',
-  ChatGptModel.davinciInstructBeta: 'davinci-instruct-beta',
-  ChatGptModel.curieInstructBeta: 'curie-instruct-beta',
-  ChatGptModel.codeCushman001: 'code-cushman-001',
-  ChatGptModel.curie: 'curie',
-  ChatGptModel.textCurie001: 'text-curie-001',
-  ChatGptModel.gpt35Turbo: 'gpt-3.5-turbo',
-  ChatGptModel.gpt35Turbo0301: 'gpt-3.5-turbo-0301',
-  ChatGptModel.gpt4: 'gpt-4',
-  ChatGptModel.gpt40314: 'gpt-4-0314',
-  ChatGptModel.gpt40613: 'gpt4-0613',
-  ChatGptModel.whisper1: 'whisper-1',
-};

@@ -1,3 +1,7 @@
+## 1.0.16
+
+* Added new models and added an option for manual model name entry
+
 ## 1.0.15
 
 * Added dartdoc documentation

@@ -1,4 +1,3 @@
-import 'package:chat_gpt_flutter/src/models/chat_gpt_model.dart';
 import 'package:chat_gpt_flutter/src/models/message.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -6,7 +5,7 @@ part 'chat_completion_request.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class ChatCompletionRequest {
-  final ChatGptModel model;
+  final String model;
   final List<Message> messages;
   final double? temperature;
   final double? topP;
@@ -17,7 +16,7 @@ class ChatCompletionRequest {
       maxTokens; // max_tokens + messages tokens > 4096 will throw 400 error code
 
   ChatCompletionRequest({
-    this.model = ChatGptModel.gpt4,
+    required this.model,
     required this.messages,
     this.temperature = 0,
     this.topP,

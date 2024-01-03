@@ -122,7 +122,7 @@ class _CompletionPageState extends State<CompletionPage> {
       prompt: [question],
       stream: true,
       maxTokens: 256,
-      model: 'davinci:ft-ani-biome:ani-model-v2-2023-07-19-11-31-46',
+      model: ChatGptModel.gpt4.modelName,
       stop: ['END'],
     );
     await _streamResponse(testRequest);
